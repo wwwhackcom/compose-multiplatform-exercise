@@ -68,10 +68,18 @@ internal fun App() {
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = { /* Handle login button click */ },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+
+            }
         ) {
-            Text(text = "Log in")
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                textAlign = TextAlign.Center,
+                text = "Log in"
+            )
         }
     }
 

@@ -22,10 +22,12 @@ kotlin {
             baseName = "shared"
             isStatic = true
         }
-        extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
+        extraSpecAttributes["resources"] =
+            "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
 
     sourceSets {
+        val ktorVersion = findProperty("ktor") as String
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
@@ -33,13 +35,18 @@ kotlin {
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
             }
         }
+        val activityCompose = findProperty("activity.compose") as String
+        val appcompat = findProperty("appcompat") as String
+        val coreKtx = findProperty("core.ktx") as String
         val androidMain by getting {
             dependencies {
-                api("androidx.activity:activity-compose:1.6.1")
-                api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.9.0")
+                api("androidx.activity:activity-compose:$activityCompose")
+                api("androidx.appcompat:appcompat:$appcompat")
+                api("androidx.core:core-ktx:$coreKtx")
+                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
             }
         }
         val iosX64Main by getting
@@ -50,6 +57,9 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+            }
         }
     }
 }

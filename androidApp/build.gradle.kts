@@ -7,9 +7,11 @@ plugins {
 kotlin {
     android()
     sourceSets {
+        val androidCoroutines = findProperty("android.coroutines") as String
         val androidMain by getting {
             dependencies {
                 implementation(project(":shared"))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$androidCoroutines")
             }
         }
     }
