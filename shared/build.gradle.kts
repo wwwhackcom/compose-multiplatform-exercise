@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    kotlin("plugin.serialization").version("1.8.20")
     id("com.android.library")
     id("org.jetbrains.compose")
 }
