@@ -28,6 +28,7 @@ kotlin {
 
     sourceSets {
         val ktorVersion = findProperty("ktor") as String
+        val dateTimeVersion = findProperty("dateTimeVersion") as String
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
@@ -36,6 +37,9 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion")
             }
         }
         val activityCompose = findProperty("activity.compose") as String
