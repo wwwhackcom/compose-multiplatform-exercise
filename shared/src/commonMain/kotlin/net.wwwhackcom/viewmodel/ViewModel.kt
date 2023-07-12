@@ -1,7 +1,8 @@
 package net.wwwhackcom.viewmodel
 
-import net.wwwhackcom.RocketLaunch
-import net.wwwhackcom.repository.SpaceRepository
+import net.wwwhackcom.Credential
+import net.wwwhackcom.network.Response
+import net.wwwhackcom.repository.AuthRepository
 
 /**
  * @author nickwang
@@ -10,9 +11,12 @@ import net.wwwhackcom.repository.SpaceRepository
 
 
 class ViewModel constructor(
-    private val repository: SpaceRepository
+    private val repository: AuthRepository
 ) {
-    suspend fun getLaunches(): List<RocketLaunch> {
-        return repository.getLaunches()
+    suspend fun login(credential: Credential): String {
+        return when (val response = repository.login(credential)) {
+            is Response.Success -> response.data.toString()
+            is Response.Error -> response.error.message
+        }
     }
 }

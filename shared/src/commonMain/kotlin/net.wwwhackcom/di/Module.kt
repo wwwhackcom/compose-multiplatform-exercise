@@ -2,8 +2,8 @@ package net.wwwhackcom.di
 
 import net.wwwhackcom.network.Api
 import net.wwwhackcom.network.ApiImpl
-import net.wwwhackcom.repository.SpaceRepository
-import net.wwwhackcom.repository.SpaceRepositoryImpl
+import net.wwwhackcom.repository.AuthRepository
+import net.wwwhackcom.repository.AuthRepositoryImpl
 import net.wwwhackcom.viewmodel.ViewModel
 
 /**
@@ -17,8 +17,8 @@ object AppModule {
         return ApiImpl()
     }
 
-    private fun provideRepository(api: Api): SpaceRepository {
-        return SpaceRepositoryImpl(api)
+    private fun provideRepository(api: Api): AuthRepository {
+        return AuthRepositoryImpl(api)
     }
 
     val viewModule = ViewModel(

@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
+import net.wwwhackcom.Credential
 import net.wwwhackcom.di.AppModule
 
 @Composable
@@ -39,8 +40,8 @@ internal fun App() {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Login",
-            fontSize = 28.sp,
+            text = "Welcome to Compose Multiplatform World",
+            fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth().padding(vertical = 32.dp)
@@ -77,7 +78,7 @@ internal fun App() {
             modifier = Modifier.fillMaxWidth(),
             onClick = {
                 scope.launch {
-                    displayText = viewModel.getLaunches().toString()
+                    displayText = viewModel.login(Credential(email, password))
                 }
             }
         ) {

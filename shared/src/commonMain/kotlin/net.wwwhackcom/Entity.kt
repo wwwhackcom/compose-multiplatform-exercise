@@ -1,10 +1,7 @@
 package net.wwwhackcom
 
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toInstant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.datetime.toLocalDateTime
 
 /**
  * @author nickwang
@@ -12,35 +9,25 @@ import kotlinx.datetime.toLocalDateTime
  */
 
 @Serializable
-data class RocketLaunch(
-    @SerialName("flight_number")
-    val flightNumber: Int,
-    @SerialName("name")
-    val missionName: String,
-    @SerialName("date_utc")
-    val launchDateUTC: String,
-    @SerialName("details")
-    val details: String?,
-    @SerialName("success")
-    val launchSuccess: Boolean?,
-    @SerialName("links")
-    val links: Links
-) {
-    var launchYear = launchDateUTC.toInstant().toLocalDateTime(TimeZone.UTC).year
-}
-
-@Serializable
-data class Links(
-    @SerialName("patch")
-    val patch: Patch?,
-    @SerialName("article")
-    val article: String?
+data class User(
+    @SerialName("userId")
+    val userId: String,
+    @SerialName("username")
+    val username: String,
+    @SerialName("firstName")
+    val firstName: String? = null,
+    @SerialName("lastName")
+    val lastName: String? = null,
+    @SerialName("description")
+    val description: String? = null,
+    @SerialName("avatar")
+    val avatar: String? = null,
 )
 
 @Serializable
-data class Patch(
-    @SerialName("small")
-    val small: String?,
-    @SerialName("large")
-    val large: String?
+data class Credential(
+    @SerialName("username")
+    val username: String,
+    @SerialName("password")
+    val password: String,
 )
