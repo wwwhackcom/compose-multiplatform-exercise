@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -22,19 +23,25 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
+import net.wwwhackcom.Credential
+import net.wwwhackcom.di.AppModule
 
 @Composable
 internal fun App() {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var displayText by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
+    val viewModel = AppModule.viewModule
 
     Column(
         modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Login",
-            fontSize = 28.sp,
+            text = "Welcome to Compose Multiplatform World",
+            fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth().padding(vertical = 32.dp)
@@ -70,7 +77,9 @@ internal fun App() {
         Button(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-
+                scope.launch {
+                    displayText = viewModel.login(Credential(email, password))
+                }
             }
         ) {
             Text(
@@ -79,6 +88,18 @@ internal fun App() {
                     .padding(10.dp),
                 textAlign = TextAlign.Center,
                 text = "Log in"
+            )
+        }
+
+        displayText.takeIf {
+            it.isNotEmpty()
+        }?.run {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                textAlign = TextAlign.Center,
+                text = displayText
             )
         }
     }
