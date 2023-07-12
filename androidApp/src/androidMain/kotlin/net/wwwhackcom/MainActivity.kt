@@ -1,4 +1,4 @@
-package com.myapplication
+package net.wwwhackcom
 
 import MainView
 import android.os.Bundle
