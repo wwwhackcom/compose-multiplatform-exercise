@@ -23,6 +23,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import net.wwwhackcom.Credential
 import net.wwwhackcom.di.AppModule
@@ -77,7 +78,9 @@ internal fun App() {
         Button(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-                scope.launch {
+                scope.launch(CoroutineExceptionHandler { _, exception ->
+                    displayText = "exception = $exception"
+                }) {
                     displayText = viewModel.login(Credential(email, password))
                 }
             }
