@@ -26,7 +26,8 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import net.wwwhackcom.Credential
-import net.wwwhackcom.di.AppModule
+import net.wwwhackcom.viewmodel.ViewModel
+import org.koin.compose.koinInject
 
 @Composable
 internal fun App() {
@@ -34,7 +35,7 @@ internal fun App() {
     var password by remember { mutableStateOf("") }
     var displayText by remember { mutableStateOf("") }
     val scope = rememberCoroutineScope()
-    val viewModel = AppModule.viewModule
+    val viewModel = koinInject<ViewModel>()
 
     Column(
         modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp),
