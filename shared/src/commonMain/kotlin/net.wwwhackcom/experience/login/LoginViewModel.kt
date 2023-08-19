@@ -1,4 +1,4 @@
-package net.wwwhackcom.viewmodel
+package net.wwwhackcom.experience.login
 
 import net.wwwhackcom.Credential
 import net.wwwhackcom.network.Response
@@ -10,7 +10,7 @@ import net.wwwhackcom.repository.AuthRepository
  */
 
 
-class ViewModel constructor(
+class LoginViewModel constructor(
     private val repository: AuthRepository
 ) {
     suspend fun login(credential: Credential): String {
