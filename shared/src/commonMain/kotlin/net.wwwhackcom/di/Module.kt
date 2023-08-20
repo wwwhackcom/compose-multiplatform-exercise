@@ -5,6 +5,8 @@ import net.wwwhackcom.network.ApiImpl
 import net.wwwhackcom.repository.AuthRepository
 import net.wwwhackcom.repository.AuthRepositoryImpl
 import net.wwwhackcom.experience.login.LoginViewModel
+import net.wwwhackcom.experience.registration.RegistrationViewModel
+import net.wwwhackcom.experience.userInfo.UserInfoViewModel
 import org.koin.dsl.module
 
 /**
@@ -21,7 +23,9 @@ val repositoryModule = module {
 }
 
 val viewModelModule = module {
-    single { LoginViewModel(get()) }
+    factory { LoginViewModel(get()) }
+    factory { RegistrationViewModel(get()) }
+    factory { UserInfoViewModel(get()) }
 }
 
 val appModule = listOf(
