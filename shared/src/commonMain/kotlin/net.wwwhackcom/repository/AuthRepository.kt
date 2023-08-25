@@ -14,6 +14,12 @@ import net.wwwhackcom.network.ResultError
 interface AuthRepository {
     @Throws(Exception::class)
     suspend fun login(credential: Credential): Response<User, ResultError>
+
+    @Throws(Exception::class)
+    suspend fun register(credential: Credential): Response<User, ResultError>
+
+    @Throws(Exception::class)
+    suspend fun userInfo(id: String): Response<User, ResultError>
 }
 
 class AuthRepositoryImpl constructor(
@@ -23,6 +29,22 @@ class AuthRepositoryImpl constructor(
     @Throws(Exception::class)
     override suspend fun login(credential: Credential): Response<User, ResultError> {
         val response = api.login(credential)
+        return if (response.payload != null) Response.Success(response.payload) else Response.Error(
+            response.result
+        )
+    }
+
+    @Throws(Exception::class)
+    override suspend fun register(credential: Credential): Response<User, ResultError> {
+        val response = api.register(credential)
+        return if (response.payload != null) Response.Success(response.payload) else Response.Error(
+            response.result
+        )
+    }
+
+    @Throws(Exception::class)
+    override suspend fun userInfo(id: String): Response<User, ResultError> {
+        val response = api.userInfo(id)
         return if (response.payload != null) Response.Success(response.payload) else Response.Error(
             response.result
         )

@@ -32,11 +32,12 @@ kotlin {
         val koinVersion = findProperty("koin") as String
         val koinComposeVersion = findProperty("koin-compose") as String
         val dateTimeVersion = findProperty("dateTimeVersion") as String
+        val voyagerVersion = findProperty("voyagerVersion") as String
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
-                implementation(compose.material)
+                implementation(compose.material3)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
@@ -46,6 +47,8 @@ kotlin {
                 implementation("io.insert-koin:koin-test:$koinVersion")
                 implementation("io.insert-koin:koin-compose:$koinComposeVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion")
+                implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
+                implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
             }
         }
         val activityCompose = findProperty("activity.compose") as String
@@ -57,6 +60,7 @@ kotlin {
                 api("androidx.appcompat:appcompat:$appcompat")
                 api("androidx.core:core-ktx:$coreKtx")
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+                implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
             }
         }
         val iosX64Main by getting

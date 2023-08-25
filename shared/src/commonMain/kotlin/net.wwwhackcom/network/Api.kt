@@ -4,12 +4,14 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
+import io.ktor.http.path
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import net.wwwhackcom.Credential
@@ -22,6 +24,8 @@ import net.wwwhackcom.User
 
 interface Api {
     suspend fun login(credential: Credential): Dto<User>
+    suspend fun register(credential: Credential): Dto<User>
+    suspend fun userInfo(id: String): Dto<User>
 }
 
 
@@ -47,6 +51,20 @@ class ApiImpl : Api {
     override suspend fun login(credential: Credential): Dto<User> {
         return httpClient.post("/auth/login") {
             setBody(credential)
+        }.body()
+    }
+
+    override suspend fun register(credential: Credential): Dto<User> {
+        return httpClient.post("/auth/register") {
+            setBody(credential)
+        }.body()
+    }
+
+    override suspend fun userInfo(id: String): Dto<User> {
+        return httpClient.get {
+            url {
+                path("user", id)
+            }
         }.body()
     }
 
