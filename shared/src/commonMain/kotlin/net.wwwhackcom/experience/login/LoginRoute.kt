@@ -43,7 +43,7 @@ import net.wwwhackcom.experience.login.LoginUiState.Init
 import net.wwwhackcom.experience.login.LoginUiState.Loading
 import net.wwwhackcom.experience.login.LoginUiState.Success
 import net.wwwhackcom.experience.registration.RegistrationRoute
-import net.wwwhackcom.experience.userInfo.UserInfoRoute
+import net.wwwhackcom.experience.profile.ProfileRoute
 import net.wwwhackcom.ext.getScreenModel
 import net.wwwhackcom.ext.validateEmail
 import net.wwwhackcom.ext.validatePassword
@@ -74,7 +74,7 @@ internal class LoginRoute : Screen {
             is Loading -> LoadingScreen()
             is Success -> {
                 viewModel.reset() //TODO: AppState
-                navigator.push(UserInfoRoute((state as Success).user.userId))
+                navigator.push(ProfileRoute((state as Success).user.userId))
             }
 
             is Error -> ErrorScreen((state as Error).error) {
