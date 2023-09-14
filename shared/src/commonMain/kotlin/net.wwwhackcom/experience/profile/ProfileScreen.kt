@@ -1,4 +1,4 @@
-package net.wwwhackcom.experience.userInfo
+package net.wwwhackcom.experience.profile
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,32 +23,32 @@ import net.wwwhackcom.experience.base.LoadingScreen
 import net.wwwhackcom.experience.base.TopBar
 import net.wwwhackcom.ext.getScreenModel
 
-internal class UserInfoRoute(private val id: String) : Screen {
+internal class ProfileRoute(private val id: String) : Screen {
 
     @Composable
     override fun Content() {
 
-        val viewModel = getScreenModel<UserInfoViewModel>()
+        val viewModel = getScreenModel<ProfileViewModel>()
         val state by viewModel.state.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
 
         LaunchedEffect(Unit) {
-            viewModel.userInfo(id)
+            viewModel.getUserProfile(id)
         }
         when (state) {
-            is UserInfoUiState.Loading -> LoadingScreen()
-            is UserInfoUiState.Success -> UserInfoScreen((state as UserInfoUiState.Success).user.toString()) {
+            is ProfileUiState.Loading -> LoadingScreen()
+            is ProfileUiState.Success -> ProfileScreen((state as ProfileUiState.Success).user.toString()) {
                 navigator.pop()
             }
 
-            is UserInfoUiState.Error -> ErrorScreen((state as UserInfoUiState.Error).error)
+            is ProfileUiState.Error -> ErrorScreen((state as ProfileUiState.Error).error)
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun UserInfoScreen(
+private fun ProfileScreen(
     userInfo: String,
     onBackPressed: () -> Unit
 ) {
