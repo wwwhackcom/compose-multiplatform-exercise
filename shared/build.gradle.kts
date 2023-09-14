@@ -31,6 +31,7 @@ kotlin {
         val koinComposeVersion = findProperty("koin-compose") as String
         val dateTimeVersion = findProperty("dateTimeVersion") as String
         val voyagerVersion = findProperty("voyagerVersion") as String
+        val kamelVersion = findProperty("kamelVersion") as String
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
@@ -47,6 +48,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion")
                 implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
                 implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
+                implementation("media.kamel:kamel-image:$kamelVersion")
             }
         }
         val activityCompose = findProperty("activity.compose") as String
