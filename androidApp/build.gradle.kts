@@ -7,12 +7,12 @@ plugins {
 kotlin {
     android()
     sourceSets {
-        val androidCoroutines = findProperty("android.coroutines") as String
+        val coroutinesVersion = findProperty("android.coroutines") as String
         val koinVersion = findProperty("koin") as String
         val androidMain by getting {
             dependencies {
                 implementation(project(":shared"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$androidCoroutines")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
                 implementation("io.insert-koin:koin-android:$koinVersion")
                 implementation("io.insert-koin:koin-android-compat:$koinVersion")
             }
