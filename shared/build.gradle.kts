@@ -1,7 +1,7 @@
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-    kotlin("plugin.serialization").version("1.8.20")
+    kotlin("plugin.serialization")
     id("com.android.library")
     id("org.jetbrains.compose")
 }
@@ -32,6 +32,7 @@ kotlin {
         val dateTimeVersion = findProperty("dateTimeVersion") as String
         val voyagerVersion = findProperty("voyagerVersion") as String
         val kamelVersion = findProperty("kamelVersion") as String
+        val coroutinesVersion = findProperty("android.coroutines") as String
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
@@ -49,6 +50,8 @@ kotlin {
                 implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
                 implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
                 implementation("media.kamel:kamel-image:$kamelVersion")
+                implementation(kotlin("test"))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
             }
         }
         val activityCompose = findProperty("activity.compose") as String
@@ -60,7 +63,6 @@ kotlin {
                 api("androidx.appcompat:appcompat:$appcompat")
                 api("androidx.core:core-ktx:$coreKtx")
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
-                implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
             }
         }
         val iosX64Main by getting

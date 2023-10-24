@@ -1,7 +1,7 @@
 package net.wwwhackcom.experience.login
 
 import cafe.adriel.voyager.core.model.StateScreenModel
-import cafe.adriel.voyager.core.model.coroutineScope
+import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import net.wwwhackcom.Credential
@@ -20,7 +20,7 @@ class LoginViewModel constructor(
 ): StateScreenModel<LoginUiState>(LoginUiState.Init) {
 
     fun login(credential: Credential) {
-        coroutineScope.launch(CoroutineExceptionHandler { _, exception ->
+        screenModelScope.launch(CoroutineExceptionHandler { _, exception ->
             LoginUiState.Error(exception.toString())
         }) {
             mutableState.value = LoginUiState.Loading

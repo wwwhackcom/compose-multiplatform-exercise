@@ -1,7 +1,7 @@
 package net.wwwhackcom.experience.profile
 
 import cafe.adriel.voyager.core.model.StateScreenModel
-import cafe.adriel.voyager.core.model.coroutineScope
+import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import net.wwwhackcom.User
@@ -17,7 +17,7 @@ class ProfileViewModel constructor(
     private val repository: AuthRepository,
 ): StateScreenModel<ProfileUiState>(ProfileUiState.Loading) {
     fun getUserProfile(id: String) {
-        coroutineScope.launch(CoroutineExceptionHandler { _, exception ->
+        screenModelScope.launch(CoroutineExceptionHandler { _, exception ->
             ProfileUiState.Error(exception.toString())
         }) {
             when (val response = repository.userInfo(id)) {
